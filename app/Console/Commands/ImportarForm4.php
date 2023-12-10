@@ -4,10 +4,8 @@ namespace App\Console\Commands;
 
 use App\Models\Empresa;
 use App\Models\Formulario;
-use App\Models\Propiedad;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
-use SimpleXMLElement;
 
 class ImportarForm4 extends Command
 {
