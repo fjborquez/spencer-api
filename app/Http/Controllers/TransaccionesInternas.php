@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Formulario;
-use Illuminate\Http\Request;
 
 class TransaccionesInternas extends Controller
 {

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Empresa;
 use App\Models\Formulario;
-use Illuminate\Http\Request;
 
 class InternosEmpresa extends Controller
 {

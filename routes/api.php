@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\InternosEmpresa;
+use App\Http\Controllers\ResultadosAnualesEmpresa;
 use App\Http\Controllers\TransaccionesInternas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,3 +24,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/transacciones-internas/{codigo}', [TransaccionesInternas::class, 'get']);
 Route::get('/transacciones-internas', [TransaccionesInternas::class, 'list']);
 Route::get('/empresas/{cik}/internos', [InternosEmpresa::class, 'get']);
+Route::get('/empresas/{cik}/resultados-anuales', [ResultadosAnualesEmpresa::class, 'get']);
