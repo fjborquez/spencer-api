@@ -62,7 +62,7 @@ class ImportarForm4 extends Command
 
         $oldFormsList = $companyData->filings->files;
 
-        foreach ($oldFormsList as $form) {
+        foreach ($oldFormsList as $index => $form) {
             $oldForms = json_decode($this->downloadOldFormsData($form->name));
 
             $accessionNumber = $oldForms->accessionNumber[$index];
@@ -73,15 +73,12 @@ class ImportarForm4 extends Command
                 continue;
             }
 
-            foreach ($oldForms->form as $index => $form) {
+            foreach ($oldForms->form as $form) {
                 if ($form == '4') {
                     $this->proccessForm4($cik, $empresa, $fileName, $accessionNumber);
                 }
             }
-
         }
-
-
 
         return 0;
     }
