@@ -29,11 +29,11 @@ class FormService implements FormServiceInterface
             return $f['name'] == 'NetIncomeLoss' || $f['name'] == 'DocumentPeriodEndDate';
         });
 
-        dd($results);
-
         $endOfPeriod = current(array_filter($results, function($f) {
             return $f['name'] == 'DocumentPeriodEndDate';
         }));
+
+        dd($endOfPeriod);
 
         if ($endOfPeriod) {
             $endOfPeriod = $endOfPeriod['value'];
@@ -59,11 +59,11 @@ class FormService implements FormServiceInterface
             return $f['name'] == 'ProfitLoss' || $f['name'] == 'DocumentPeriodEndDate';
         });
 
-        dd($results);
-
         $endOfPeriod = current(array_filter($results, function($f) {
             return $f['name'] == 'DocumentPeriodEndDate';
         }));
+
+        dd($endOfPeriod);
 
         if ($endOfPeriod) {
             $endOfPeriod = $endOfPeriod['value'];
