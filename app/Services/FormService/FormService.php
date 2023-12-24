@@ -43,20 +43,25 @@ class FormService implements FormServiceInterface
                                 'cond' => [
                                     '$or' => [
                                         ['$eq' => ['$$form.name', 'DocumentPeriodEndDate']],
-                                        ['$or' => [
+                                        ['$or' =>
                                             [
-                                                '$and' => [
-                                                    ['$eq' => ['$$form.name', 'NetIncomeLoss']],
-                                                    ['$eq' => ['$$form.prefix', 'us-gaap']]
-                                                ]
-                                            ],
-                                            [
-                                                '$and' => [
-                                                    ['$eq' => ['$$form.name', 'ProfitLoss']],
-                                                    ['$eq' => ['$$form.prefix', 'ifrs-full']]
+                                                [
+                                                    '$and' => [
+                                                        ['$eq' => ['$$form.name', 'NetIncomeLoss']],
+                                                        ['$eq' => ['$$form.prefix', 'us-gaap']]
+                                                    ]
+                                                ],
+                                                [
+                                                    '$and' => [
+                                                        ['$or' => [
+                                                                ['$eq' => ['$$form.name', 'ProfitLossAttributableToOwnersOfParent']],
+                                                                ['$eq' => ['$$form.name', 'ProfitLoss']],
+                                                            ]
+                                                        ],
+                                                        ['$eq' => ['$$form.prefix', 'ifrs-full']]
+                                                    ]
                                                 ]
                                             ]
-                                        ]
                                         ]
                                     ]
                                 ]
