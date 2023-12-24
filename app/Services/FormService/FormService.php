@@ -33,8 +33,6 @@ class FormService implements FormServiceInterface
             return $f['name'] == 'DocumentPeriodEndDate';
         }));
 
-        dd($endOfPeriod);
-
         if ($endOfPeriod) {
             $endOfPeriod = $endOfPeriod['value'];
         }
@@ -42,6 +40,8 @@ class FormService implements FormServiceInterface
         $netIncomeLoss = current(array_filter($results, function($f) use ($endOfPeriod) {
             return $f['name'] == 'NetIncomeLoss' && $f['periods'][1]['period_value'] == $endOfPeriod;
         }));
+
+        dd($netIncomeLoss);
 
         if ($netIncomeLoss) {
             $netIncomeLoss = $netIncomeLoss['value'];
@@ -63,8 +63,6 @@ class FormService implements FormServiceInterface
             return $f['name'] == 'DocumentPeriodEndDate';
         }));
 
-        dd($endOfPeriod);
-
         if ($endOfPeriod) {
             $endOfPeriod = $endOfPeriod['value'];
         }
@@ -73,11 +71,11 @@ class FormService implements FormServiceInterface
             return $f['name'] == 'ProfitLoss' && $f['periods'][1]['period_value'] == $endOfPeriod;
         }));
 
+        dd($netProfitLoss);
+
         if ($netProfitLoss) {
             $netProfitLoss = $netProfitLoss['value'];
         }
-
-        dd($netProfitLoss);
 
         return [
             'NetIncomeLoss' => floatval($netProfitLoss),
