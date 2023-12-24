@@ -82,7 +82,7 @@ class FormService implements FormServiceInterface
         }
 
         $netIncomeLoss = current(array_filter( (array) $results[0]['fields'], function ($item) use ($endOfPeriod) {
-            return ($item['name'] == 'NetIncomeLoss' || $item['name'] == 'ProfitLoss')
+            return ($item['name'] == 'NetIncomeLoss' || $item['name'] == 'ProfitLoss' || $item['name'] == 'ProfitLossAttributableToOwnersOfParent')
                 && $item['periods'][1]['period_value'] == $endOfPeriod;
         }));
 
