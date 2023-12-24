@@ -25,7 +25,6 @@ class FormService implements FormServiceInterface
 
     public function gaapFormToJson($form)
     {
-        dd($form);
         $results = array_filter($form->formulario, function($f) {
             return $f['name'] == 'NetIncomeLoss' || $f['name'] == 'DocumentPeriodEndDate';
         });
@@ -46,6 +45,8 @@ class FormService implements FormServiceInterface
             $netIncomeLoss = $netIncomeLoss['value'];
         }
 
+        dd($netProfitLoss);
+
         return [
             'NetIncomeLoss' => floatval($netIncomeLoss),
             'endOfPeriod' => $endOfPeriod
@@ -54,7 +55,6 @@ class FormService implements FormServiceInterface
 
     public function ifrsFormToJson($form)
     {
-        dd($form);
         $results = array_filter($form->formulario, function($f) {
             return $f['name'] == 'ProfitLoss' || $f['name'] == 'DocumentPeriodEndDate';
         });
@@ -74,6 +74,8 @@ class FormService implements FormServiceInterface
         if ($netProfitLoss) {
             $netProfitLoss = $netProfitLoss['value'];
         }
+
+        dd($netProfitLoss);
 
         return [
             'NetIncomeLoss' => floatval($netProfitLoss),
