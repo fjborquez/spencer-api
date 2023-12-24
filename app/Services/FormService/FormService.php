@@ -45,7 +45,7 @@ class FormService implements FormServiceInterface
             $netIncomeLoss = $netIncomeLoss['value'];
         }
 
-        dd($netProfitLoss);
+        dd($netIncomeLoss);
 
         return [
             'NetIncomeLoss' => floatval($netIncomeLoss),
