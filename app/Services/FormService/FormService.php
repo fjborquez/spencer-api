@@ -46,7 +46,7 @@ class FormService implements FormServiceInterface
         }
 
         return [
-            'NetIncomeLoss' => $netIncomeLoss,
+            'NetIncomeLoss' => floatval($netIncomeLoss),
             'endOfPeriod' => $endOfPeriod
         ];
     }
@@ -74,7 +74,7 @@ class FormService implements FormServiceInterface
         }
 
         return [
-            'NetIncomeLoss' => $netProfitLoss,
+            'NetIncomeLoss' => floatval($netProfitLoss),
             'endOfPeriod' => $endOfPeriod
         ];
     }
