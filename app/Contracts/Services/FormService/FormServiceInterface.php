@@ -8,9 +8,7 @@ interface FormServiceInterface
 
     public function isIfrs($form);
 
-    public function gaapFormToJson($form);
-
-    public function ifrsFormToJson($form);
+    public function formToJson($code);
 
     public function getForms($company);
 }

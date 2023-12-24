@@ -18,12 +18,7 @@ class ResultadosAnualesEmpresa extends Controller
 
         foreach($forms as $form) {
             $code = $form->codigo;
-
-            if ($formService->isGaapForm($code)) {
-                $formsInJson[] = $formService->gaapFormToJson($form);
-            } elseif ($formService->isIfrs($code)) {
-                $formsInJson[] = $formService->ifrsFormToJson($form);
-            }
+            $formsInJson[] = $formService->formToJson($code);
         }
 
         return $formsInJson;

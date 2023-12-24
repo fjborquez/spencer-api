@@ -23,22 +23,62 @@ class FormService implements FormServiceInterface
         return $results->count() > 0;
     }
 
-    public function gaapFormToJson($form)
+    public function formToJson($code)
     {
-        $results = array_filter($form->formulario, function($f) {
-            return $f['name'] == 'NetIncomeLoss' || $f['name'] == 'DocumentPeriodEndDate';
+        $results = Formulario::raw(function($collection) use ($code) {
+            return $collection->aggregate([
+                [
+                    '$match' => [
+                        'codigo' => [
+                            '$eq' => $code
+                        ]
+                    ]
+                ],
+                [
+                    '$project' => [
+                        'fields' => [
+                            '$filter' => [
+                                'input' => '$formulario',
+                                'as' => 'form',
+                                'cond' => [
+                                    '$or' => [
+                                        ['$eq' => ['$$form.name', 'DocumentPeriodEndDate']],
+                                        ['$or' => [
+                                            [
+                                                '$and' => [
+                                                    ['$eq' => ['$$form.name', 'NetIncomeLoss']],
+                                                    ['$eq' => ['$$form.prefix', 'us-gaap']]
+                                                ]
+                                            ],
+                                            [
+                                                '$and' => [
+                                                    ['$eq' => ['$$form.name', 'ProfitLoss']],
+                                                    ['$eq' => ['$$form.prefix', 'ifrs-full']]
+                                                ]
+                                            ]
+                                        ]
+                                        ]
+                                    ]
+                                ]
+                            ],
+                        ]
+                    ]
+                ]
+            ]);
         });
 
-        $endOfPeriod = current(array_filter($results, function($f) {
-            return $f['name'] == 'DocumentPeriodEndDate';
+
+        $endOfPeriod = current(array_filter( (array) $results[0]['fields'], function ($item) {
+            return $item['name'] == 'DocumentPeriodEndDate';
         }));
 
         if ($endOfPeriod) {
             $endOfPeriod = $endOfPeriod['value'];
         }
 
-        $netIncomeLoss = current(array_filter($results, function($f) use ($endOfPeriod) {
-            return $f['name'] == 'NetIncomeLoss' && $f['periods'][1]['period_value'] == $endOfPeriod;
+        $netIncomeLoss = current(array_filter( (array) $results[0]['fields'], function ($item) use ($endOfPeriod) {
+            return ($item['name'] == 'NetIncomeLoss' || $item['name'] == 'ProfitLoss')
+                && $item['periods'][1]['period_value'] == $endOfPeriod;
         }));
 
         if ($netIncomeLoss) {
@@ -46,37 +86,10 @@ class FormService implements FormServiceInterface
         }
 
         return [
-            'NetIncomeLoss' => floatval($netIncomeLoss),
-            'endOfPeriod' => $endOfPeriod
+            'netIncomeLoss' => $netIncomeLoss,
+            'endOfPeriod' => $endOfPeriod,
         ];
-    }
 
-    public function ifrsFormToJson($form)
-    {
-        $results = array_filter($form->formulario, function($f) {
-            return $f['name'] == 'ProfitLoss' || $f['name'] == 'DocumentPeriodEndDate';
-        });
-
-        $endOfPeriod = current(array_filter($results, function($f) {
-            return $f['name'] == 'DocumentPeriodEndDate';
-        }));
-
-        if ($endOfPeriod) {
-            $endOfPeriod = $endOfPeriod['value'];
-        }
-
-        $netProfitLoss = current(array_filter($results, function($f) use ($endOfPeriod) {
-            return $f['name'] == 'ProfitLoss' && $f['periods'][1]['period_value'] == $endOfPeriod;
-        }));
-
-        if ($netProfitLoss) {
-            $netProfitLoss = $netProfitLoss['value'];
-        }
-
-        return [
-            'NetIncomeLoss' => floatval($netProfitLoss),
-            'endOfPeriod' => $endOfPeriod
-        ];
     }
 
     public function getForms($company)
