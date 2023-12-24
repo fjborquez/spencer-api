@@ -41,8 +41,6 @@ class FormService implements FormServiceInterface
             return $f['name'] == 'NetIncomeLoss' && $f['periods'][1]['period_value'] == $endOfPeriod;
         }));
 
-        dd($netIncomeLoss);
-
         if ($netIncomeLoss) {
             $netIncomeLoss = $netIncomeLoss['value'];
         }
@@ -70,8 +68,6 @@ class FormService implements FormServiceInterface
         $netProfitLoss = current(array_filter($results, function($f) use ($endOfPeriod) {
             return $f['name'] == 'ProfitLoss' && $f['periods'][1]['period_value'] == $endOfPeriod;
         }));
-
-        dd($netProfitLoss);
 
         if ($netProfitLoss) {
             $netProfitLoss = $netProfitLoss['value'];
