@@ -103,24 +103,22 @@ class FormService implements FormServiceInterface
             return $collection->aggregate([
                 [
                     '$match' => [
-                        [
-                            '$and' => [
-                                [
-                                    'empresa_id' => [
-                                        '$eq' => $company->id
-                                    ]
-                                ],
-                                [
-                                    '$or' => [
-                                        [
-                                            'tipo' => [
-                                                '$eq' => '10-K'
-                                            ]
-                                        ],
-                                        [
-                                            'tipo' => [
-                                                '$eq' => '20-F'
-                                            ]
+                        '$and' => [
+                            [
+                                'empresa_id' => [
+                                    '$eq' => $company->id
+                                ]
+                            ],
+                            [
+                                '$or' => [
+                                    [
+                                        'tipo' => [
+                                            '$eq' => '10-K'
+                                        ]
+                                    ],
+                                    [
+                                        'tipo' => [
+                                            '$eq' => '20-F'
                                         ]
                                     ]
                                 ]
