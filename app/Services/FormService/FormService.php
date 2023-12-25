@@ -101,35 +101,39 @@ class FormService implements FormServiceInterface
     {
         return Formulario::raw(function($collection) use ($company) {
             return $collection->aggregate([
-                '$match' => [
-                    [
-                        '$and' => [
-                            [
-                                'empresa_id' => [
-                                    '$eq' => $company->id
-                                ]
-                            ],
-                            [
-                                '$or' => [
-                                    [
-                                        'tipo' => [
-                                            '$eq' => '10-K'
-                                        ]
-                                    ],
-                                    [
-                                        'tipo' => [
-                                            '$eq' => '20-F'
+                [
+                    '$match' => [
+                        [
+                            '$and' => [
+                                [
+                                    'empresa_id' => [
+                                        '$eq' => $company->id
+                                    ]
+                                ],
+                                [
+                                    '$or' => [
+                                        [
+                                            'tipo' => [
+                                                '$eq' => '10-K'
+                                            ]
+                                        ],
+                                        [
+                                            'tipo' => [
+                                                '$eq' => '20-F'
+                                            ]
                                         ]
                                     ]
                                 ]
                             ]
                         ]
-                    ]
+                    ],
                 ],
-                '$project' => [
-                    'tipo' => '$tipo',
-                    'codigo' => '$codigo',
-                    'empresa_id' => '$empresa_id'
+                [
+                    '$project' => [
+                        'tipo' => '$tipo',
+                        'codigo' => '$codigo',
+                        'empresa_id' => '$empresa_id'
+                    ]
                 ]
             ]);
         });
