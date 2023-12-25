@@ -25,6 +25,7 @@ class FormService implements FormServiceInterface
 
     public function formToJson($code)
     {
+        dd($code);
         $results = Formulario::raw(function($collection) use ($code) {
             return $collection->aggregate([
                 [
