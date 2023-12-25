@@ -72,7 +72,6 @@ class FormService implements FormServiceInterface
             ]);
         });
 
-
         $endOfPeriod = current(array_filter( (array) $results[0]['fields'], function ($item) {
             return $item['name'] == 'DocumentPeriodEndDate';
         }));
@@ -80,6 +79,8 @@ class FormService implements FormServiceInterface
         if ($endOfPeriod) {
             $endOfPeriod = $endOfPeriod['value'];
         }
+
+        dd($endOfPeriod);
 
         $netIncomeLoss = current(array_filter( (array) $results[0]['fields'], function ($item) use ($endOfPeriod) {
             return ($item['name'] == 'NetIncomeLoss' || $item['name'] == 'ProfitLoss' || $item['name'] == 'ProfitLossAttributableToOwnersOfParent')
