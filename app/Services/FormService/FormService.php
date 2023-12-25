@@ -99,10 +99,39 @@ class FormService implements FormServiceInterface
 
     public function getForms($company)
     {
-        return Formulario::where('empresa_id', $company->id)
-            ->where(function ($query) {
-                $query->where('tipo', '10-K')
-                    ->orWhere('tipo', '20-F');
-            })->get();
+        return Formulario::raw(function($collection) use ($company) {
+            return $collection->aggregate([
+                '$match' => [
+                    [
+                        '$and' => [
+                            [
+                                'empresa_id' => [
+                                    '$eq' => $company->id
+                                ]
+                            ],
+                            [
+                                '$or' => [
+                                    [
+                                        'tipo' => [
+                                            '$eq' => '10-K'
+                                        ]
+                                    ],
+                                    [
+                                        'tipo' => [
+                                            '$eq' => '20-F'
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
+                ],
+                '$project' => [
+                    'tipo' => '$tipo',
+                    'codigo' => '$codigo',
+                    'empresa_id' => '$empresa_id'
+                ]
+            ]);
+        });
     }
 }

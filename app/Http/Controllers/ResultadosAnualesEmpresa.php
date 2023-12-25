@@ -14,11 +14,11 @@ class ResultadosAnualesEmpresa extends Controller
 
         $company = Empresa::where('cik', $cik)->first();
         $forms = $formService->getForms($company);
+        dd($forms);
         $formsInJson = [];
 
         foreach($forms as $form) {
             $code = $form->codigo;
-            dd($code);
             $formsInJson[] = $formService->formToJson($code);
         }
 
