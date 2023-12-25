@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\App;
 class ResultadosAnualesEmpresa extends Controller
 {
     public function get($cik) {
+        dd($cik);
         $formService = App::make(FormServiceInterface::class);
 
         $company = Empresa::where('cik', $cik)->first();
