@@ -25,7 +25,6 @@ class FormService implements FormServiceInterface
 
     public function formToJson($code)
     {
-        dd($code);
         $results = Formulario::raw(function($collection) use ($code) {
             return $collection->aggregate([
                 [
@@ -72,8 +71,6 @@ class FormService implements FormServiceInterface
                 ]
             ]);
         });
-
-        dd($results);
 
         $endOfPeriod = current(array_filter( (array) $results[0]['fields'], function ($item) {
             return $item['name'] == 'DocumentPeriodEndDate';
