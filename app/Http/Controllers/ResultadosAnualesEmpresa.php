@@ -17,8 +17,7 @@ class ResultadosAnualesEmpresa extends Controller
         $formsInJson = [];
 
         foreach($forms as $form) {
-            $code = $form->codigo;
-            dd($code);
+            $code = $form->codigo;s
             $formsInJson[] = $formService->formToJson($code);
         }
 
