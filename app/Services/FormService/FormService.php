@@ -66,7 +66,8 @@ class FormService implements FormServiceInterface
                                     ]
                                 ]
                             ],
-                        ]
+                        ],
+                        'fuente' => '$fuente'
                     ]
                 ]
             ]);
@@ -92,6 +93,7 @@ class FormService implements FormServiceInterface
         return [
             'netIncomeLoss' => $netIncomeLoss,
             'endOfPeriod' => $endOfPeriod,
+            'source' => $results['0']['fuente']
         ];
 
     }
