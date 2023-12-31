@@ -4,7 +4,6 @@ namespace App\Services\FormService;
 
 use App\Models\Formulario;
 use App\Contracts\Services\FormService\FormServiceInterface;
-use Illuminate\Support\Arr;
 
 class FormService implements FormServiceInterface
 {
@@ -91,11 +90,11 @@ class FormService implements FormServiceInterface
             $netIncomeLoss = $netIncomeLoss['value'];
         }
 
-        return Arr::sort([
+        return [
             'netIncomeLoss' => $netIncomeLoss,
             'endOfPeriod' => $endOfPeriod,
             'source' => $results['0']['source']
-        ]);
+        ];
 
     }
 
