@@ -5,6 +5,7 @@ use App\Http\Controllers\ResultadosAnualesEmpresa;
 use App\Http\Controllers\TransaccionesInternas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\ValidateToken;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/transacciones-internas/{codigo}', [TransaccionesInternas::class, 'get']);
-Route::get('/transacciones-internas', [TransaccionesInternas::class, 'list']);
-Route::get('/empresas/{cik}/internos', [InternosEmpresa::class, 'get']);
-Route::get('/empresas/{cik}/resultados-anuales', [ResultadosAnualesEmpresa::class, 'get']);
+Route::middleware(ValidateToken::class)->get('/transacciones-internas/{codigo}', [TransaccionesInternas::class, 'get']);
+Route::middleware(ValidateToken::class)->get('/transacciones-internas', [TransaccionesInternas::class, 'list']);
+Route::middleware(ValidateToken::class)->get('/empresas/{cik}/internos', [InternosEmpresa::class, 'get']);
+Route::middleware(ValidateToken::class)->get('/empresas/{cik}/resultados-anuales', [ResultadosAnualesEmpresa::class, 'get']);
