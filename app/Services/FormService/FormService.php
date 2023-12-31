@@ -90,11 +90,11 @@ class FormService implements FormServiceInterface
             $netIncomeLoss = $netIncomeLoss['value'];
         }
 
-        return [
+        return Arr::sort([
             'netIncomeLoss' => $netIncomeLoss,
             'endOfPeriod' => $endOfPeriod,
             'source' => $results['0']['source']
-        ];
+        ]);
 
     }
 
