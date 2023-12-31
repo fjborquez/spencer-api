@@ -21,12 +21,14 @@ class ResultadosAnualesEmpresa extends Controller
             $formsInJson[] = $formService->formToJson($code);
         }
 
-        return usort($formsInJson, function ($current, $next) {
+        usort($formsInJson, function ($current, $next) {
             if ($current['endOfPeriod'] === $next['endOfPeriod']) {
                 return 0;
             }
 
             return $current['endOfPeriod'] < $next['endOfPeriod'] ? -1 : 1;
         });
+
+        return $formsInJson;
     }
 }
