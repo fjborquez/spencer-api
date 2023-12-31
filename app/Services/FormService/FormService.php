@@ -77,8 +77,6 @@ class FormService implements FormServiceInterface
             return $item['name'] == 'DocumentPeriodEndDate';
         }));
 
-        var_dump($endOfPeriod);
-
         if ($endOfPeriod) {
             $endOfPeriod = $endOfPeriod['value'];
         }
@@ -87,6 +85,8 @@ class FormService implements FormServiceInterface
             return ($item['name'] == 'NetIncomeLoss' || $item['name'] == 'ProfitLoss' || $item['name'] == 'ProfitLossAttributableToOwnersOfParent')
                 && $item['periods'][1]['period_value'] == $endOfPeriod;
         }));
+
+        var_dump($netIncomeLoss);
 
         if ($netIncomeLoss) {
             $netIncomeLoss = $netIncomeLoss['value'];
