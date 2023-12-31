@@ -73,11 +73,11 @@ class FormService implements FormServiceInterface
             ]);
         });
 
-        dd($results);
-
         $endOfPeriod = current(array_filter( (array) $results[0]['fields'], function ($item) {
             return $item['name'] == 'DocumentPeriodEndDate';
         }));
+
+        var_dump($endOfPeriod);
 
         if ($endOfPeriod) {
             $endOfPeriod = $endOfPeriod['value'];
