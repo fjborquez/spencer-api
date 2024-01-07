@@ -60,7 +60,12 @@ class ImportarForm4 extends Command
             }
 
             if ($form == '4') {
-                $this->proccessForm4($cik, $empresa, $fileName, $accessionNumber);
+                try {
+                    $this->proccessForm4($cik, $empresa, $fileName, $accessionNumber);
+                } catch (\ErrorException $th) {
+                    continue;
+                }
+
             }
         }
 
@@ -83,7 +88,11 @@ class ImportarForm4 extends Command
 
             foreach ($oldForms->form as $form) {
                 if ($form == '4') {
-                    $this->proccessForm4($cik, $empresa, $fileName, $accessionNumber);
+                    try {
+                        $this->proccessForm4($cik, $empresa, $fileName, $accessionNumber);
+                    } catch (\ErrorException $th) {
+                        continue;
+                    }
                 }
             }
         }
