@@ -55,7 +55,7 @@ class ImportarForm4 extends Command
                 continue;
             }
 
-            if (isPaperForm($fileName)) {
+            if ($this->isPaperForm($fileName)) {
                 continue;
             }
 
@@ -77,7 +77,7 @@ class ImportarForm4 extends Command
                 continue;
             }
 
-            if (isPaperForm($fileName)) {
+            if ($this->isPaperForm($fileName)) {
                 continue;
             }
 
