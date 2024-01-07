@@ -151,5 +151,5 @@ class ImportarForm4 extends Command
 
     private function isPaperForm($fileName) {
         return str_contains($fileName, '.paper');
-    })
+    }
 }
