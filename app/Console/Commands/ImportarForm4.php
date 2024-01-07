@@ -55,6 +55,10 @@ class ImportarForm4 extends Command
                 continue;
             }
 
+            if (isPaperForm($fileName)) {
+                continue;
+            }
+
             if ($form == '4') {
                 $this->proccessForm4($cik, $empresa, $fileName, $accessionNumber);
             }
@@ -70,6 +74,10 @@ class ImportarForm4 extends Command
             $existForm = Formulario::where('codigo', $accessionNumber)->get();
 
             if ($existForm->count() > 0) {
+                continue;
+            }
+
+            if (isPaperForm($fileName)) {
                 continue;
             }
 
@@ -94,7 +102,7 @@ class ImportarForm4 extends Command
     private function getFileName($filename) {
         $filename = explode('/', $filename);
 
-        if (count($filename) > 1) {
+        if (count($filename) >= 1) {
             $filename = $filename[count($filename) - 1];
         }
 
@@ -140,4 +148,8 @@ class ImportarForm4 extends Command
         usleep(500000);
         return $file->body();
     }
+
+    private function isPaperForm($fileName) {
+        return str_contains($fileName, '.paper');
+    })
 }
